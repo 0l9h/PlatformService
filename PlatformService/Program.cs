@@ -12,6 +12,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(
     opts => opts.UseInMemoryDatabase("InMem"));
+builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
+
 
 var app = builder.Build();
 
@@ -27,5 +29,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+PrepDb.PrepPopulation(app);
 
 app.Run();
